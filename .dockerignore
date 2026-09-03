@@ -1,0 +1,11 @@
+.dockerignore
+.dockerignore
+target/*
+!target/mercado-renata-1.0.0-shaded.jar
+!target/mercado-renata-1.0.0.jar
+.m2/
+.git/
+.idea/
+*.iml
+logs/
+**/node_modules

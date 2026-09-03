@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  mercado-renata:
+    build: .
+    image: mercado-renata:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+    restart: unless-stopped

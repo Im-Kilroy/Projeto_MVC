@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mercado da Renata | Estoque</title><link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header><div class="brand"><b>MR</b><span>Mercado da Renatinha Ingrata<small>PAINEL DE ESTOQUE</small></span></div><div class="date">DATA DO SISTEMA<strong id="today">--/--/----</strong></div></header>
+  <main><section class="intro"><div><label>VISÃO GERAL</label><h1>Mercadorias</h1><p>Consulte os produtos disponíveis e acompanhe suas validades.</p></div><div class="summary"><strong id="total">0</strong> mercadorias <i></i><strong id="available">0</strong> em estoque</div></section>
+    <section class="tools"><div class="search">⌕<input id="search" placeholder="Buscar mercadoria..." autocomplete="off"></div><div class="legend"><span class="safe">● Validade segura</span><span class="near">● Até 3 meses</span><span class="expired">● Vencido</span></div></section>
+    <section id="grid" class="grid"></section><div id="empty" class="empty" hidden>Nenhuma mercadoria encontrada.</div>
+  </main>
+  <button class="pdf-button" id="pdf-button" aria-label="Gerar relatório em PDF">PDF</button>
+  <div class="floating-agents">
+    <button class="gemini-button" id="gemini-button" aria-label="Abrir agente Gemini">✦</button>
+  </div>
+  <div class="modal" id="product-modal" hidden><article><button class="close" data-close>×</button><div class="big-image" id="detail-icon">📦</div><div class="details"><label>DASHBOARD DA MERCADORIA</label><h2 id="detail-name"></h2><span id="detail-status" class="badge"></span><dl><div><dt>ID</dt><dd id="detail-id"></dd></div><div><dt>QUANTIDADE</dt><dd id="detail-quantity"></dd></div><div><dt>FABRICAÇÃO</dt><dd id="detail-fabrication"></dd></div><div><dt>VALIDADE</dt><dd id="detail-expiration"></dd></div><div><dt>RESPONSÁVEL</dt><dd id="detail-owner"></dd></div><div><dt>SITUAÇÃO DA VALIDADE</dt><dd id="detail-validity"></dd></div></dl></div></article></div>
+  <div class="modal" id="agent-modal" hidden><article class="agent"><button class="close" type="button" data-close>×</button><label for="question" id="agent-label">RENATINHA IA</label><h2>Como posso ajudar?</h2><div id="answer">Olá, sou a Renatinha IA, sua amiguinha, o que deseja saber sobre o estoque?</div><div class="ask"><input id="question" type="text" placeholder="Ex.: qual a situação do Café?" autocomplete="off"><button id="ask" type="button">Enviar</button></div></article></div>
+  <script src="/app.js"></script>
+</body>
+</html>
