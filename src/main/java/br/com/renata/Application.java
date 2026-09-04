@@ -210,79 +210,52 @@ public class Application {
 
     private static byte[] buildPdfReport(List<Product> products) {
         try (PDDocument document = new PDDocument()) {
-            float marginLeft = 72f;
-            float startY = 780f;
-            float currentY = startY;
-            float rowHeight = 18f;
-            float blockSpacing = 24f;
+            float marginLeft = 24f;
+            float pageWidth = PDRectangle.A4.getWidth();
+            float pageHeight = PDRectangle.A4.getHeight();
+            float rowHeight = 20f;
+            float headerHeight = 18f;
+            float[] colWidths = {130f, 72f, 72f, 58f, 120f};
+            float tableWidth = sum(colWidths);
+            float startX = Math.max(marginLeft, (pageWidth - tableWidth) / 2f);
 
-            PDPage page = new PDPage(PDRectangle.A4);
-            document.addPage(page);
-            PDPageContentStream stream = new PDPageContentStream(document, page);
-            stream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA), 12);
-            stream.beginText();
-            stream.newLineAtOffset(marginLeft, currentY);
-
-            stream.showText("----------------------------------------------");
-            currentY -= 20f;
-            stream.newLineAtOffset(0, -20f);
-            stream.showText("      ESTOQUE DO MERCADINHO DA RENATA");
-            currentY -= 20f;
-            stream.newLineAtOffset(0, -20f);
-            stream.showText("----------------------------------------------");
-            currentY -= 28f;
-            stream.newLineAtOffset(0, -28f);
-            stream.showText("Data: " + LocalDate.now().format(DATE));
-            currentY -= 24f;
-
-            boolean firstProduct = true;
-            for (Product product : products) {
-                if (currentY < 120f) {
-                    stream.endText();
-                    stream.close();
-                    page = new PDPage(PDRectangle.A4);
-                    document.addPage(page);
-                    stream = new PDPageContentStream(document, page);
-                    stream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA), 12);
-                    stream.beginText();
-                    currentY = startY;
-                    stream.newLineAtOffset(marginLeft, currentY);
-                }
-
-                if (!firstProduct) {
-                    stream.newLineAtOffset(0, -18f);
-                    stream.showText("----------------------------------------------");
-                    currentY -= 18f;
-                }
-                firstProduct = false;
-
-                stream.newLineAtOffset(0, -18f);
-                stream.showText("Produto: " + ascii(product.nome()));
-                currentY -= rowHeight;
-                stream.newLineAtOffset(0, -rowHeight);
-                stream.showText("Quantidade de Produtos: " + product.quantidade());
-                currentY -= rowHeight;
-                stream.newLineAtOffset(0, -rowHeight);
-                stream.showText("Data de fabricação: " + ascii(product.fabricacao()));
-                currentY -= rowHeight;
-                stream.newLineAtOffset(0, -rowHeight);
-                stream.setNonStrokingColor(pdfColor(product.validadeStatus()));
-                stream.showText("Data de Validade: " + ascii(product.validade()));
-                stream.setNonStrokingColor(new PDColor(new float[] {0f, 0f, 0f}, PDDeviceRGB.INSTANCE));
-                currentY -= rowHeight;
-                stream.newLineAtOffset(0, -rowHeight);
-                stream.showText("Status: " + (product.status() ? "em estoque" : "indisponível"));
-                currentY -= rowHeight;
-                stream.newLineAtOffset(0, -rowHeight);
-                stream.showText("Responsável: " + ascii(product.responsavel()));
-                currentY -= rowHeight;
-                stream.newLineAtOffset(0, -rowHeight);
-                stream.showText("----------------------------------------------");
-                currentY -= blockSpacing;
+            List<Product> rows = products == null ? List.of() : products;
+            if (rows.isEmpty()) {
+                PDPage page = new PDPage(PDRectangle.A4);
+                document.addPage(page);
+                PDPageContentStream stream = new PDPageContentStream(document, page);
+                drawPdfTitle(stream, startX, pageHeight - 48f, "estoque do mercadinho da renata.");
+                stream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA), 12);
+                stream.beginText();
+                stream.newLineAtOffset(startX, pageHeight - 90f);
+                stream.showText("Nenhum produto cadastrado no estoque.");
+                stream.endText();
+                stream.close();
+                ByteArrayOutputStream output = new ByteArrayOutputStream();
+                document.save(output);
+                return output.toByteArray();
             }
 
-            stream.endText();
-            stream.close();
+            int index = 0;
+            while (index < rows.size()) {
+                PDPage page = new PDPage(PDRectangle.A4);
+                document.addPage(page);
+                PDPageContentStream stream = new PDPageContentStream(document, page);
+                drawPdfTitle(stream, startX, pageHeight - 48f, "estoque do mercadinho da renata.");
+
+                float currentY = pageHeight - 90f;
+                drawPdfHeader(stream, startX, currentY, colWidths, headerHeight);
+                currentY -= headerHeight;
+
+                int rowsInPage = 0;
+                int maxRowsPerPage = Math.max(1, (int) ((pageHeight - 140f) / (rowHeight * 2f)));
+                while (index < rows.size() && rowsInPage < maxRowsPerPage) {
+                    drawPdfRow(stream, startX, currentY, rowHeight, colWidths, rows.get(index++));
+                    currentY -= rowHeight;
+                    rowsInPage++;
+                }
+                stream.close();
+            }
 
             ByteArrayOutputStream output = new ByteArrayOutputStream();
             document.save(output);
@@ -290,6 +263,89 @@ public class Application {
         } catch (IOException e) {
             throw new IllegalStateException("Não foi possível gerar o relatório PDF.", e);
         }
+    }
+
+    private static void drawPdfTitle(PDPageContentStream stream, float left, float topY, String title) throws IOException {
+        stream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA_BOLD), 15);
+        stream.setNonStrokingColor(new PDColor(new float[] {0f, 0f, 0f}, PDDeviceRGB.INSTANCE));
+        stream.beginText();
+        stream.newLineAtOffset(left + 110f, topY);
+        stream.showText(title);
+        stream.endText();
+    }
+
+    private static void drawPdfHeader(PDPageContentStream stream, float left, float y, float[] colWidths, float headerHeight) throws IOException {
+        stream.setNonStrokingColor(new PDColor(new float[] {0.87f, 0.87f, 0.87f}, PDDeviceRGB.INSTANCE));
+        stream.addRect(left, y - headerHeight, sum(colWidths), headerHeight);
+        stream.fill();
+
+        stream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA_BOLD), 8);
+        stream.setNonStrokingColor(new PDColor(new float[] {0f, 0f, 0f}, PDDeviceRGB.INSTANCE));
+
+        String[] headers = {"produto", "fabricação", "validade", "quantidade", "responsável"};
+        float x = left;
+        for (int i = 0; i < headers.length; i++) {
+            stream.beginText();
+            stream.newLineAtOffset(x + 4f, y - 12f);
+            stream.showText(headers[i]);
+            stream.endText();
+            x += colWidths[i];
+        }
+
+        stream.setNonStrokingColor(new PDColor(new float[] {0f, 0f, 0f}, PDDeviceRGB.INSTANCE));
+    }
+
+    private static void drawPdfRow(PDPageContentStream stream, float left, float y, float rowHeight, float[] colWidths, Product product) throws IOException {
+        float x = left;
+        String[] values = {
+                ascii(product.nome()),
+                ascii(product.fabricacao()),
+                ascii(product.validade()),
+                String.valueOf(product.quantidade()),
+                ascii(product.responsavel())
+        };
+
+        for (int i = 0; i < values.length; i++) {
+            float width = colWidths[i];
+            if (i == 2) {
+                stream.setNonStrokingColor(pdfColor(product.validadeStatus()));
+                stream.addRect(x, y - rowHeight, width, rowHeight);
+                stream.fill();
+                stream.setNonStrokingColor(new PDColor(new float[] {0f, 0f, 0f}, PDDeviceRGB.INSTANCE));
+            } else {
+                stream.setNonStrokingColor(new PDColor(new float[] {0.98f, 0.98f, 0.98f}, PDDeviceRGB.INSTANCE));
+                stream.addRect(x, y - rowHeight, width, rowHeight);
+                stream.fill();
+                stream.setNonStrokingColor(new PDColor(new float[] {0f, 0f, 0f}, PDDeviceRGB.INSTANCE));
+            }
+
+            stream.setStrokingColor(new PDColor(new float[] {0.25f, 0.25f, 0.25f}, PDDeviceRGB.INSTANCE));
+            stream.addRect(x, y - rowHeight, width, rowHeight);
+            stream.stroke();
+
+            stream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA), 7);
+            stream.beginText();
+            stream.newLineAtOffset(x + 3f, y - 13f);
+            stream.showText(truncate(values[i], i == 0 ? 18 : 20));
+            stream.endText();
+
+            x += width;
+        }
+    }
+
+    private static float sum(float[] values) {
+        float total = 0f;
+        for (float value : values) {
+            total += value;
+        }
+        return total;
+    }
+
+    private static String truncate(String value, int maxLength) {
+        if (value == null) return "";
+        String clean = ascii(value).trim();
+        if (clean.length() <= maxLength) return clean;
+        return clean.substring(0, Math.max(1, maxLength - 1)) + "…";
     }
 
     private static String ascii(String value) {
@@ -425,12 +481,6 @@ public class Application {
             boolean mentionsKnownProduct = products.stream()
                     .anyMatch(product -> text.contains(normalize(product.nome())) || text.contains(normalize(product.responsavel())));
 
-            if (text.contains("vencid") || text.contains("vencido") || text.contains("expirado") || text.contains("fora da validade")) {
-                List<Product> expired = products.stream().filter(product -> "vencido".equals(product.validadeStatus())).toList();
-                if (expired.isEmpty()) return "Não há produtos vencidos no estoque no momento.";
-                return "Produtos vencidos: " + expired.stream().map(product -> product.nome() + " (" + product.validade() + ")").collect(Collectors.joining(", ")) + ".";
-            }
-
             if (text.contains("quantos") || text.contains("quantidade") || text.contains("total") && (text.contains("venc") || text.contains("validade") || text.contains("respons"))) {
                 if ((text.contains("venc") || text.contains("expir") || text.contains("validade")) && !text.contains("respons")) {
                     long expired = products.stream().filter(product -> "vencido".equals(product.validadeStatus())).count();
@@ -454,6 +504,12 @@ public class Application {
                         return String.format("O responsável %s tem %d produto(s) no mercado.", responsibleName, count);
                     }
                 }
+            }
+
+            if (text.contains("vencid") || text.contains("vencido") || text.contains("expirado") || text.contains("fora da validade")) {
+                List<Product> expired = products.stream().filter(product -> "vencido".equals(product.validadeStatus())).toList();
+                if (expired.isEmpty()) return "Não há produtos vencidos no estoque no momento.";
+                return "Produtos vencidos: " + expired.stream().map(product -> product.nome() + " (" + product.validade() + ")").collect(Collectors.joining(", ")) + ".";
             }
 
             if (text.contains("na validade") || text.contains("dentro da validade") || text.contains("validade segura") || text.contains("vigente") || text.contains("validos") || text.contains("válidos")) {

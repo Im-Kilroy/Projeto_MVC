@@ -25,13 +25,15 @@ class ApplicationTest {
         try (PDDocument document = Loader.loadPDF(pdf)) {
             String report = new PDFTextStripper().getText(document);
 
-            assertTrue(report.contains("ESTOQUE"), "O PDF deve conter o título principal do estoque.");
-            assertTrue(report.contains("MERCADINHO") || report.contains("RENATA"), "O PDF deve conter o nome do mercado.");
-            assertTrue(report.contains("Produto: Pão"), "O PDF deve incluir o nome do produto com acento.");
-            assertTrue(report.contains("Quantidade de Produtos: 10"), "O PDF deve incluir a quantidade.");
-            assertTrue(report.contains("Status: em estoque"), "O PDF deve traduzir o status para texto.");
-            assertTrue(report.contains("Responsável: Seu Zé"), "O PDF deve manter o texto em português com acentos.");
-            assertTrue(report.contains("Data de Validade: 01/02/2033"), "O PDF deve manter a data de validade no relatório.");
+            assertTrue(report.contains("estoque do mercadinho da renata."), "O PDF deve conter o título principal do estoque.");
+            assertTrue(report.contains("quantidade"), "O PDF deve incluir a coluna de quantidade.");
+            assertTrue(report.contains("validade"), "O PDF deve incluir a coluna de validade.");
+            assertTrue(report.contains("fabricação"), "O PDF deve incluir a coluna de fabricação.");
+            assertTrue(report.contains("responsável"), "O PDF deve incluir a coluna de responsável.");
+            assertTrue(report.contains("Pão"), "O PDF deve incluir o nome do produto.");
+            assertTrue(report.contains("10"), "O PDF deve incluir a quantidade do produto.");
+            assertTrue(report.contains("Seu Zé"), "O PDF deve manter o texto em português com acentos.");
+            assertTrue(report.contains("01/02/2033"), "O PDF deve manter a data de validade no relatório.");
         }
     }
 

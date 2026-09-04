@@ -1,5 +1,12 @@
 br/com/renata/Application$ProductSeed.class
+br/com/renata/Application$Database.class
 br/com/renata/Application$Service.class
+br/com/renata/model/Product.class
 br/com/renata/Application$Product.class
+br/com/renata/repository/StockRepository.class
+br/com/renata/controller/StockController.class
 br/com/renata/Application$Repository.class
 br/com/renata/Application.class
+br/com/renata/service/StockService.class
+br/com/renata/model/ProductSeed.class
+br/com/renata/repository/Database.class
