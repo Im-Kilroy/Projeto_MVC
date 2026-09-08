@@ -1,4 +1,13 @@
-## Projeto em Java, H2, Maven e HTML controle de estoque mercado.
+## Sistema de Gerenciamento de Estoque
+
+O projeto consiste em um gerenciaor de estoque de um mercado,
+podendo gerar relatório em PDF das mercadorias, pesquisar cada produto individualmente, verificar responsáveis, data de validade e etc...
+
+Acompanha um bot agente do lado direito inferior da interface, facilitando a navegação do cliente.
+
+As seguintes tecnologias são utilizadas:
+
+> Java, H2 (SQL), Maven, HTML, CSS, DOCKER e JAVASCRIPT
 
 ## Rodar localmente
 
