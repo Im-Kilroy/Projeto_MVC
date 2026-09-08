@@ -5,6 +5,8 @@ podendo gerar relatório em PDF das mercadorias, pesquisar cada produto individu
 
 Acompanha um bot agente do lado direito inferior da interface, facilitando a navegação do cliente.
 
+Estrutura em MVC (Model-View-Controller).
+
 As seguintes tecnologias são utilizadas:
 
 > Java, H2 (SQL), Maven, HTML, CSS, DOCKER e JAVASCRIPT
