@@ -12,11 +12,13 @@ As seguintes tecnologias são utilizadas:
 > Java, H2 (SQL), Maven, HTML, CSS, DOCKER e JAVASCRIPT
 
 <p align="center">
-  <img src="https://drive.google.com/uc?export=view&id=1htwZOsYMhWUlOV4u9kvIGUaZNT6apS4q" width="600">
+  <img src="https://drive.google.com/uc?export=view&id=1htwZOsYMhWUlOV4u9kvIGUaZNT6apS4q" width="700">
   <br>
   <sub>Demonstração da Interface</sub>
 </p>
 
+
+[▶️ Assista a demonstração no YouTube](https://www.youtube.com/watch?v=r9a00aYrXdQ)
 
 ## Rodar localmente
 
