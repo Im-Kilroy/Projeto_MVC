@@ -1,6 +1,6 @@
 ## Sistema de Gerenciamento de Estoque
 
-O projeto consiste em um gerenciaor de estoque de um mercado,
+O projeto consiste em um gerenciador de estoque de um mercado,
 podendo gerar relatório em PDF das mercadorias, pesquisar cada produto individualmente, verificar responsáveis, data de validade e etc...
 
 Acompanha um bot agente do lado direito inferior da interface, facilitando a navegação do cliente.
@@ -31,3 +31,8 @@ As seguintes tecnologias são utilizadas:
 ## Configurações adicionais
 
 >Configurar variável GEMINI_API_KEY localmente no env.
+
+## Fundação FAT
+
+Projeto elaborado no curso de Arquitetura de Sistemas da Fundação FAT [Descrição do curso](https://www.alunos.cettpro.sp.gov.br/novo-emprego/cursos/3562aaf9-283b-f011-b4cc-000d3a889219)
+
