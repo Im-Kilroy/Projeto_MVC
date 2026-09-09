@@ -32,7 +32,4 @@ As seguintes tecnologias são utilizadas:
 
 >Configurar variável GEMINI_API_KEY localmente no env.
 
-## Fundação FAT
-
-Projeto elaborado no curso de Arquitetura de Sistemas da Fundação FAT [Descrição do curso](https://www.alunos.cettpro.sp.gov.br/novo-emprego/cursos/3562aaf9-283b-f011-b4cc-000d3a889219)
 
