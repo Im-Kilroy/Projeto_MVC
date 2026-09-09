@@ -11,8 +11,7 @@ As seguintes tecnologias são utilizadas:
 
 > Java, H2 (SQL), Maven, HTML, CSS, DOCKER e JAVASCRIPT
 
-<img src="https://drive.google.com/file/d/1htwZOsYMhWUlOV4u9kvIGUaZNT6apS4q/view
-" alt="Texto Alternativo">
+![Minha imagem](https://drive.google.com/uc?export=view&id=1htwZOsYMhWUlOV4u9kvIGUaZNT6apS4q)
 
 
 ## Rodar localmente
