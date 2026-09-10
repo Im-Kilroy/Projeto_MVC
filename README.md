@@ -14,7 +14,7 @@ As seguintes tecnologias são utilizadas:
 <p align="center">
   <img src="https://drive.google.com/uc?export=view&id=1-iwLQwbqXjQk_AwKagIJUxiifsXSXRM_" width="700">
   <br>
-  <sub>Nova Interface</sub>
+  <sub>Interface</sub>
 </p>
 
 
