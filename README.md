@@ -18,15 +18,17 @@ As seguintes tecnologias são utilizadas:
 </p>
 
 
-[▶️ Demonstração da aplicação](https://www.youtube.com/watch?v=r9a00aYrXdQ)
+[▶️ Demonstração da aplicação](https://www.youtube.com/watch?v=h7uqkj7ofh8)
 
 ## Rodar localmente
+
+> mvn compile -Dexec.mainClass="br.com.renata.Application"
 
 > mvn exec:java
 
 ## Rodar no Docker
 
->  sudo docker compose up --build
+> docker compose up --build
 
 ## Configurações adicionais
 
