@@ -67,3 +67,65 @@ MERGE INTO mercadorias (id, nome, quantidade_produtos, data_fabricacao, data_val
     (13, 'Pirulito', 0, '01/01/2026', '10/11/2028', FALSE, 'Seu Anderson'),
     (14, 'Brócolis', 100, '01/01/2026', '20/10/2026', TRUE, 'Seu Zé'),
     (15, 'Alface', 0, '01/01/2026', '20/10/2028', FALSE, 'Seu Anderson'), [42001-224]
+2026-09-10 00:15:28.845921-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "([*]16, 'Noice', 0, '01/01/2026', '20/10/2028', FALSE, 'Seu Anderson')"; expected "(, SELECT, TABLE, VALUES"; SQL statement:
+(16, 'Noice', 0, '01/01/2026', '20/10/2028', FALSE, 'Seu Anderson') [42001-224]
+2026-09-10 00:16:04.408265-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "([*]16, 'Noice', 0, '01/01/2026', '20/10/2028', FALSE, 'Seu Anderson')"; expected "(, SELECT, TABLE, VALUES"; SQL statement:
+(16, 'Noice', 0, '01/01/2026', '20/10/2028', FALSE, 'Seu Anderson') [42001-224]
+2026-09-10 00:16:19.438818-03:00 database: close
+org.h2.message.DbException: IO Exception: "Closing" [90028-224]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.close(Store.java:374)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1293)
+	at org.h2.engine.Database.closeImpl(Database.java:1255)
+	at org.h2.engine.Database.close(Database.java:1174)
+	at org.h2.engine.Database.onShutdown(Database.java:1159)
+	at org.h2.engine.OnExitDatabaseCloser.onShutdown(OnExitDatabaseCloser.java:85)
+	at org.h2.engine.OnExitDatabaseCloser.run(OnExitDatabaseCloser.java:114)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: IO Exception: "Closing" [90028-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 8 more
+Caused by: org.h2.mvstore.MVStoreException: java.lang.NoClassDefFoundError: org/h2/mvstore/Chunk$PositionComparator [2.2.224/3]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:926)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:463)
+	at org.h2.mvstore.RandomAccessStore.compactStore(RandomAccessStore.java:443)
+	at org.h2.mvstore.FileStore.compactStore(FileStore.java:888)
+	at org.h2.mvstore.FileStore.stop(FileStore.java:275)
+	at org.h2.mvstore.MVStore.closeStore(MVStore.java:693)
+	at org.h2.mvstore.MVStore.close(MVStore.java:643)
+	at org.h2.mvstore.db.Store.close(Store.java:364)
+	... 6 more
+Caused by: java.lang.NoClassDefFoundError: org/h2/mvstore/Chunk$PositionComparator
+	at org.h2.mvstore.RandomAccessStore.findChunksToMove(RandomAccessStore.java:516)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:479)
+	at org.h2.mvstore.RandomAccessStore.lambda$compactMoveChunks$1(RandomAccessStore.java:468)
+	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1888)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:922)
+	... 13 more
+Caused by: java.lang.ClassNotFoundException: org.h2.mvstore.Chunk$PositionComparator
+	at org.codehaus.mojo.exec.URLClassLoaderBuilder$ExecJavaClassLoader.loadClass(URLClassLoaderBuilder.java:198)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	... 18 more
+2026-09-10 00:16:54.433941-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "MERGE INTO mercadorias (id, nome, quantidade_produtos, data_fabricacao, data_validade, status, responsavel) KEY(id) VALUES\000a    (0, 'Pão', 10, '30/10/1997', '02/09/2026', TRUE, 'Seu Zé'),\000a    (1, 'Macarrão', 15, '01/02/2025', '30/11/2027', TRUE, 'Seu Camilo'),\000a    (2, 'Café', 0, '01/01/2020', '30/08/2028', FALSE, 'Seu Lopez'),\000a    (3, 'Cerveja', 10, '01/01/2020', '12/12/2020', TRUE, 'Seu Lopez'),\000a    (4, 'Carne', 5, '01/01/2020', '10/11/2026', TRUE, 'Seu Camilo'),\000a    (5, 'Pasta', 90, '01/01/2000', '10/11/2010', TRUE, 'Seu Zé'),\000a    (6, 'Cabo Verde', 11, '01/01/2000', '10/11/2030', TRUE, 'Seu Antonio'),\000a    (7, 'Cabo Azul', 11, '01/01/2000', '10/11/2004', TRUE, 'Seu Camilo'),\000a    (8, 'Papiro', 11, '01/01/2000', '10/11/2100', TRUE, 'Seu Coisinha'),\000a    (9, 'Pedra', 11, '01/01/1980', '10/11/1997', TRUE, 'Seu Coisinha'),\000a    (10, 'Meia', 11, '01/01/2020', '10/11/2040', TRUE, 'Seu Coisinha'),\000a    (11, 'Chocolate', 11, '01/01/2002', '10/11/2010', TRUE, 'Seu Anderson'),\000a    (99, 'Morango', 40, '01/01/2026', '10/11/2026', TRUE, 'Seu Zé'),\000a    (12, 'Guaraná', 40, '01/01/2026', '10/11/2027', TRUE, 'Seu Anderson'),\000a    (13, 'Pirulito', 0, '01/01/2026', '10/11/2028', FALSE, 'Seu Anderson'),\000a    (14, 'Brócolis', 100, '01/01/2026', '20/10/2026', TRUE, 'Seu Zé'),\000a    (15, 'Alface', 0, '01/01/2026', '20/10/2028', FALSE, 'Seu Anderson'),[*]"; expected "ROW (, (, DEFAULT, INTERSECTS (, NOT, EXISTS, UNIQUE, INTERSECTS"; SQL statement:
+MERGE INTO mercadorias (id, nome, quantidade_produtos, data_fabricacao, data_validade, status, responsavel) KEY(id) VALUES
+    (0, 'Pão', 10, '30/10/1997', '02/09/2026', TRUE, 'Seu Zé'),
+    (1, 'Macarrão', 15, '01/02/2025', '30/11/2027', TRUE, 'Seu Camilo'),
+    (2, 'Café', 0, '01/01/2020', '30/08/2028', FALSE, 'Seu Lopez'),
+    (3, 'Cerveja', 10, '01/01/2020', '12/12/2020', TRUE, 'Seu Lopez'),
+    (4, 'Carne', 5, '01/01/2020', '10/11/2026', TRUE, 'Seu Camilo'),
+    (5, 'Pasta', 90, '01/01/2000', '10/11/2010', TRUE, 'Seu Zé'),
+    (6, 'Cabo Verde', 11, '01/01/2000', '10/11/2030', TRUE, 'Seu Antonio'),
+    (7, 'Cabo Azul', 11, '01/01/2000', '10/11/2004', TRUE, 'Seu Camilo'),
+    (8, 'Papiro', 11, '01/01/2000', '10/11/2100', TRUE, 'Seu Coisinha'),
+    (9, 'Pedra', 11, '01/01/1980', '10/11/1997', TRUE, 'Seu Coisinha'),
+    (10, 'Meia', 11, '01/01/2020', '10/11/2040', TRUE, 'Seu Coisinha'),
+    (11, 'Chocolate', 11, '01/01/2002', '10/11/2010', TRUE, 'Seu Anderson'),
+    (99, 'Morango', 40, '01/01/2026', '10/11/2026', TRUE, 'Seu Zé'),
+    (12, 'Guaraná', 40, '01/01/2026', '10/11/2027', TRUE, 'Seu Anderson'),
+    (13, 'Pirulito', 0, '01/01/2026', '10/11/2028', FALSE, 'Seu Anderson'),
+    (14, 'Brócolis', 100, '01/01/2026', '20/10/2026', TRUE, 'Seu Zé'),
+    (15, 'Alface', 0, '01/01/2026', '20/10/2028', FALSE, 'Seu Anderson'), [42001-224]
