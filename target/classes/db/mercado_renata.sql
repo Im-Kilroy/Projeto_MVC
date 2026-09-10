@@ -27,6 +27,6 @@ MERGE INTO mercadorias (id, nome, quantidade_produtos, data_fabricacao, data_val
     (12, 'Guaraná', 40, '01/01/2026', '10/11/2027', TRUE, 'Seu Anderson'),
     (13, 'Pirulito', 0, '01/01/2026', '10/11/2028', FALSE, 'Seu Anderson'),
     (14, 'Brócolis', 100, '01/01/2026', '20/10/2026', TRUE, 'Seu Zé'),
-    (15, 'Alface', 0, '01/01/2026', '20/10/2028', FALSE, 'Seu Anderson');
-
+    (15, 'Alface', 0, '01/01/2026', '20/10/2028', FALSE, 'Seu Anderson'),
+    (16, 'Noice', 0, '01/01/2026', '20/10/2028', FALSE, 'Seu Anderson');
   
