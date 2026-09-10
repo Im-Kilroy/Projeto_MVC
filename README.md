@@ -23,6 +23,7 @@ As seguintes tecnologias são utilizadas:
 ## Rodar localmente
 
 > mvn compile -Dexec.mainClass="br.com.renata.Application"
+
 > mvn exec:java
 
 ## Rodar no Docker
