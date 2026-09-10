@@ -12,7 +12,7 @@ As seguintes tecnologias são utilizadas:
 > Java, H2 (SQL), Maven, HTML, CSS, DOCKER e JAVASCRIPT
 
 <p align="center">
-  <img src="https://drive.google.com/file/d/1-iwLQwbqXjQk_AwKagIJUxiifsXSXRM_/view?usp=drive_link" width="400">
+  <img src="https://drive.google.com/file/d/1-iwLQwbqXjQk_AwKagIJUxiifsXSXRM_" width="400">
   <br>
     <sub>Nova Interface</sub>
 </p>
